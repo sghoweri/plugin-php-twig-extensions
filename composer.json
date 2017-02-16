@@ -20,12 +20,18 @@
   },
   "autoload": {
     "psr-0": {
-      "PatternLab\\TwigExtensions": "src/"
+      "PatternLab\\TwigExtensions": "src/",
+      "Drupal\\Component\\Render\\": "src/",
+      "Drupal\\Component\\Utility\\": "src/",
+      "Drupal\\Core\\": "src/",
+      "Drupal\\Core\\Template\\": "src/"
     }
   },
   "require": {
-    "php":            ">=5.3.6",
-    "pattern-lab/core": "^2.0.0",
-    "twig/extensions": "~1.2"
+    "php":            "*",
+    "pattern-lab/core": "*",
+    "twig/extensions": "~1.2",
+    "aptoma/twig-markdown": "~2.0",
+    "michelf/php-markdown": "~1.3"
   }
 }

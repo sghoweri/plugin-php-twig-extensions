@@ -13,6 +13,9 @@
 namespace PatternLab\TwigExtensions;
 
 use \PatternLab\PatternEngine\Twig\TwigUtil;
+use \Aptoma\Twig\Extension\MarkdownExtension;
+use \Aptoma\Twig\Extension\MarkdownEngine;
+use \Drupal\Core\Template\Attribute;
 
 class PatternLabListener extends \PatternLab\Listener {
   
@@ -30,6 +33,8 @@ class PatternLabListener extends \PatternLab\Listener {
   */
   public function addExtensions() {
     
+    $engine = new MarkdownEngine\MichelfMarkdownEngine();
+    
     $instance = TwigUtil::getInstance();
     $instance->addExtension(new \Twig_Extensions_Extension_Text());
     if (function_exists('gettext')) {
@@ -40,8 +45,15 @@ class PatternLabListener extends \PatternLab\Listener {
     }
     $instance->addExtension(new \Twig_Extensions_Extension_Array());
     $instance->addExtension(new \Twig_Extensions_Extension_Date());
-    TwigUtil::setInstance($instance);
+    $instance->addExtension(new MarkdownExtension($engine));
     
+    
+    $instance->addFunction(new \Twig_SimpleFunction('create_attribute', array($this, 'createAttribute')));
+      
+    TwigUtil::setInstance($instance);
   }
   
+  public function createAttribute($attributes = []) {
+    return new Attribute($attributes);
+  }
 }
